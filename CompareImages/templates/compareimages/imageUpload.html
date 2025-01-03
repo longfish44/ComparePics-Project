@@ -1,0 +1,32 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>画像分析</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+             <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 <div class="form-group">
+                    <label for="Azure_used_count"><b>今月Azureの利用回数：{{ Azure_used_count }}回</b></label>
+                </div>
+                 <div class="form-group">
+                    <label for="image1">分析対象画像を選択してください：</label>
+                    <input type="file" name="image1" class="form-control" id="image1" accept="image/*" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">分析開始</button>
+                <a role="button" class="btn btn-primary" href="{% url 'home' %}">Back To Home</a>        
+             </form>
+                
+        </div>
+    </div>
+{% endblock %}

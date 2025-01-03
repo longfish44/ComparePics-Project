@@ -1,0 +1,30 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4">画像分析・比較ツール</h1>
+            <p class="lead text-left">
+                従来の帳票や画面の比較は、目視によるため客観的な評価が難しく、リリース判断が遅延しがちでした。<br>
+                本ツールでは、OpenCVとMicrosoft AzureのComputer Visionを組み合わせることで、画像の分析と比較を自動化し、より客観的な評価を可能にします。
+                （当WEBサイトのAPI無料期間は２０２５年９月末までです。）
+            </p>
+        </div>
+    </div>
+    <div class="row text-center mt-4">
+        <div class="col-md-3">
+            <a href="{% url 'imageUpload' %}" class="btn btn-primary btn-lg btn-block mb-2">画像分析</a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'compare1Upload' %}" class="btn btn-primary btn-lg btn-block mb-2">1対1比較</a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'compareNUpload' %}" class="btn btn-primary btn-lg btn-block mb-2">N対N比較</a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'history' %}" class="btn btn-primary btn-lg btn-block mb-2">利用履歴</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
+            <h2>利用履歴一覧</h2>
+            <span> (利用履歴件数： {{ history_cnt }})</span>
+            <BR>
+            <BR>
+            <form method="GET" action=".">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="actFlg">アクション区分</label> 
+                        <select class="form-control" id="actFlg" name="actFlg"> 
+                            <option value="">選択してください</option>
+                            <option value="画像分析" {% if actFlg == "画像分析" %}selected{% endif %}>画像分析</option> 
+                            <option value="1対1比較" {% if actFlg == "1対1比較" %}selected{% endif %}>1対1比較</option> 
+                            <option value="N対N比較" {% if actFlg == "N対N比較" %}selected{% endif %}>N対N比較</option> 
+                        </select>                    
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="completed">完成日</label>
+                        <input type="date" class="form-control" id="completed" name="completed" value="{{ completed }}">
+                    </div>
+                    <div class="form-group col-md-4 align-self-end">
+                        <button type="submit" class="btn btn-primary">検索</button>
+                    </div>
+                </div>
+            </form>
+
+            {% if page_obj %}
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>アクション区分</th>
+                            <th>画像名1</th>
+                            <th>画像名2</th>
+                            <th>コンペア結果</th>
+                            <th>完成時間</th>
+                            <th>詳細</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for record in page_obj %}
+                        <tr>
+                            <td>{{ record.actFlg }}</td>
+                            <td>{{ record.image_title1 }}</td>
+                            <td>{{ record.image_title2 }}</td>
+                            <td>{{ record.result }}</td>
+                            <td>{{ record.completed }}</td>
+                            <td><a href="{% url 'detail' record.id %}">詳細</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if page_obj.has_other_pages %}
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if actFlg %}&amp;actFlg={{ actFlg }}{% endif %}{% if completed %}&amp;completed={{ completed }}{% endif %}" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link" aria-hidden="true">&laquo;</span>
+                                </li>
+                            {% endif %}
+                            
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ num }}{% if actFlg %}&amp;actFlg={{ actFlg }}{% endif %}{% if completed %}&amp;completed={{ completed }}{% endif %}">{{ num }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+                            
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if actFlg %}&amp;actFlg={{ actFlg }}{% endif %}{% if completed %}&amp;completed={{ completed }}{% endif %}" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            {% else %}
+                                <li class="page-item disabled">
+                                    <span class="page-link" aria-hidden="true">&raquo;</span>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                {% endif %}
+            {% else %}
+                <div class="text-center">
+                    <h2>利用履歴がない!</h2>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

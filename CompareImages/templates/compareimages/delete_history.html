@@ -1,0 +1,12 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-12">
+        <h2>履歴データ削除結果</h2>
+        <p>削除された履歴データの数: {{ deleted_count }} 件</p>
+        <p>削除されたコンペア結果CSVデータの数: {{ deleted_csv_count }} 件</p>
+        <a role="button" class="btn btn-primary" href="{% url 'home' %}">戻る</a>
+    </div>
+</div>
+{% endblock %}

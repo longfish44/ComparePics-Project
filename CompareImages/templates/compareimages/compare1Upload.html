@@ -1,0 +1,45 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
+            <h2>画像コンペア</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+             <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 <div class="form-group">
+                    <label for="Azure_used_count"><b>今月Azureの利用回数：{{ Azure_used_count }}回</b></label>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="image1">コンペア対象画像１を選択してください：</label>
+                            <input type="file" name="image1" class="form-control" id="image1" accept="image/*" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="image2">コンペア対象画像２を選択してください：</label>
+                            <input type="file" name="image2" class="form-control" id="image2" accept="image/*" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-primary">分析開始</button>
+                    <a role="button" class="btn btn-primary ml-2" href="{% url 'home' %}">Back To Home</a>
+                </div>
+             </form>
+                
+        </div>
+    </div>
+{% endblock %}

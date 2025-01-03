@@ -1,0 +1,28 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-12">
+            <h2>コンペア結果について、以下のCSVファイルをご参照ください。</h2>
+            <BR>
+            {% if csv %}
+                <div class="row col-md-12" >
+                    <a href="{{ csv.csv.url }}" target="_blank">{{ csv.csv.name }}</a></li>
+                    <span> (コンペア時間： {{ csv.created_datetime|date:"Y-m-d H:i:s" }})</span>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <h4>コンペア結果CSVファイルがない!</h4>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5 col-md-12">
+            <div class="text-center col-md-6">
+                <a role="button" class="btn btn-primary btn-lg" href="{% url 'history' %}">利用履歴</a>
+            </div>
+            <div class="text-center col-md-6">
+                <a role="button" class="btn btn-primary btn-lg" href="{% url 'home' %}">Back To Home</a>
+            </div>
+    </div>
+{% endblock %}

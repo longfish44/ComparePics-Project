@@ -1,0 +1,55 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-7">
+            <h2>API設定</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-7">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+             <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+
+                 {% if lastapi %}
+                     <div class="form-group">
+                         <label for="subscription_key">subscription_key:</label>
+                         <input type="text" name="subscription_key" class="form-control" id="subscription_key" 
+                          value="{{ lastapi.subscription_key }}" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="endpoint">endpoint:</label>
+                        <input type="text" name="endpoint" class="form-control" id="endpoint" 
+                         value="{{ lastapi.endpoint }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="created_datetime">created_datetime:</label>
+                        <input type="text" name="created_datetime" class="form-control" id="created_datetime" 
+                         value="{{ lastapi.created_datetime }}" readonly required>
+                    </div>
+                {% else %}
+                     <div class="form-group">
+                        <label for="subscription_key">subscription_key:</label>
+                        <input type="text" name="subscription_key" class="form-control" id="subscription_key" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="endpoint">endpoint:</label>
+                        <input type="text" name="endpoint" class="form-control" id="endpoint" required>
+                     </div>
+                     <div class="form-group">
+                        <label for="created_datetime">created_datetime: 現在時刻を設定</label>
+                     </div>
+                {% endif %}
+
+                <button type="submit" class="btn btn-primary">保存</button>
+                <a role="button" class="btn btn-primary" href="{% url 'home' %}">Back To Home</a>        
+             </form>
+                
+        </div>
+    </div>
+{% endblock %}

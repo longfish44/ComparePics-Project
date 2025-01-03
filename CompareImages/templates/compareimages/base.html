@@ -1,0 +1,103 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="icon" type="image/png"  href="{% static 'compareimages/logo_sp.png' %}">
+    <title>画像分析・比較</title>
+    <style> 
+        .navbar-nav .dropdown-menu { 
+            background-color: #007bff; /* 蓝色背景 */ color: white; /* 白色文字 */ 
+        } 
+        
+        .navbar-nav .dropdown-menu .dropdown-item { 
+            color: white; /* 白色文字 */ 
+        } 
+        
+        .navbar-nav .dropdown-menu .dropdown-item:hover { 
+            background-color: #0056b3; /* 深蓝色背景 */ 
+        } </style>    
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-md navbar-light bg-primary">
+<div class="container">
+    <a class="navbar-brand" href="{% url 'home' %}" style="color: white;">
+         <img src="{% static 'compareimages/logo_sp.png' %}" width="30" height="30" class="d-inline-block align-top">
+        <span>画像分析・比較</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'imageUpload' %}" style="color: white;">画像分析｜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'compare1Upload' %}"  style="color: white;">1対1比較｜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'compareNUpload' %}"  style="color: white;">N対N比較｜</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'history' %}"  style="color: white;">利用履歴｜</a>
+                </li>
+                
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false" style="color: white;">
+                      システム管理者
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'apisetting' %}">API設定</a></li>
+                      <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#deleteConfirmationModal">2か月前の履歴データを削除</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'documentDisplay' %}"  style="color: white;">説明ドキュメント</a>
+                </li>
+        </ul>
+    </div>
+</div>
+</nav>
+
+<!-- Delete Confirmation Modal -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteConfirmationModalLabel">確認</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          本当に2か月前の履歴データとコンペア結果CSVデータを削除しますか？
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+          <a href="{% url 'deleteHistory' %}" class="btn btn-primary">確認</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<div class="container">
+{% block content %}{% endblock %}
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>

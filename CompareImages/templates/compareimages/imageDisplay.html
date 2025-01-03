@@ -1,0 +1,41 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+            <h2>画像分析結果</h2>
+            {% if image %}
+                <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <div class="card">
+                                <img src="{{ image.image1.url }}" class="card-img-top" alt="{{ image.image_title1 }}">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ image.image_title1 }}</h5>
+                                    <p class="card-text">タグ: {{ image.tags1 }}</p>
+                                    <p class="card-text">説明: {{ image.descriptions1}}</p>
+                                    <p class="card-text">カテゴリ: {{ image.categories1 }}</p>
+                                    <p class="card-text">色: {{ image.colors1 }}</p>
+                                    <p class="card-text">オブジェクト: {{ image.image_objects1 }}</p>
+                                    <p class="card-text">画像タイプ: {{ image.image_types1 }}</p>
+                                    <p class="card-text">画像分析時間: {{ image.completed }}</p>
+                                    <p class="card-text">当月Azure利用回数: {{ image.Azure_used_count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            {% else %}
+                <div class="text-center">
+                    <h2>画像分析結果がない!</h2>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5  col-md-12">
+        <div class="text-center col-md-6">
+            <a role="button" class="btn btn-primary btn-lg" href="{% url 'history' %}">利用履歴</a>
+        </div>
+        <div class="text-center col-md-6">
+            <a role="button" class="btn btn-primary btn-lg" href="{% url 'home' %}">Back To Home</a>
+        </div>
+    </div>
+{% endblock %}

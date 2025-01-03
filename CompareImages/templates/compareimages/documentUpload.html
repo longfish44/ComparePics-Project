@@ -1,0 +1,33 @@
+{% extends "compareimages/base.html" %}
+
+{% block content %}
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            <h2>ドキュメントアップロード</h2>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-5">
+            {% if error %}
+                <div class="alert alert-danger" role="alert">
+                    {{ error }}
+                </div>
+            {% endif %}
+             <form method="POST" enctype="multipart/form-data">
+                 {% csrf_token %}
+                 <div class="form-group">
+                    <label for="title">タイトル：</label>
+                    <input type="text" name="title" class="form-control" id="title" required>
+                </div>
+                 <div class="form-group">
+                    <label for="document">ファイルを選択：</label>
+                    <input type="file" name="document" class="form-control" id="document" accept=".xlsx,.xls,.docx,.doc,.py,.txt,.bat,.pdf" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">アップロード</button>
+                 <a role="button" class="btn btn-primary" href="{% url 'home' %}">Back To Home</a>        
+             </form>
+                
+        </div>
+    </div>
+{% endblock %}
