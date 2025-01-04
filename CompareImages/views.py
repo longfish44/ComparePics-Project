@@ -576,6 +576,8 @@ def history(request):
     if completed_query: 
         history_list = history_list.filter(completed__date=completed_query) 
     
+    history_list = history_list.order_by('-completed')
+    
     paginator = Paginator(history_list, 10) 
     
     page_number = request.GET.get('page') 
