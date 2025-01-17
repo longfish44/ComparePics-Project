@@ -361,8 +361,7 @@ def compareNUpload(request):
                         newImage.actFlg = 'N対N比較'
                         newImage.completed = timezone.now()
                         newImage.save() 
-
-            
+                        
                         ##########################################################################################################
                         # OpenCVでの画像コンペア
                         # 画像サイズ不一致の場合は、同じサイズに調整
@@ -422,6 +421,9 @@ def compareNUpload(request):
                         
                         # 結果をCSVに保存
                         csv_content.append([currentImage.image_title1, currentImage.tags_similarity, currentImage.descriptions_similarity, currentImage.categories_similarity, currentImage.colors_similarity, currentImage.image_objects_similarity, currentImage.image_types_similarity, currentImage.result, currentImage.score_corr, currentImage.score_chi_square])
+
+                        #当月Azure利用回数+1
+                        azure_used_count = azure_used_count + 1
 
             if samename_accout == 0:
                 azure_used_count = azure_used_count - 1 
